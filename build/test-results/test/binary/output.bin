@@ -1,0 +1,10 @@
+2File 'Test_E_07121987_03.csv' failed validation.
+(PortfolioCode should be A/B/C found E.
+3File 'Hello_A_07121987_05.csv' failed validation.
+5Prefix for the file should be 'Test' found 'Hello'.
+/File 'Test_A_07121987.txt' failed validation.
+SFile format should be Test_<portfoliocode>_<ddmmyyyy>_<2digit-sequencenumber>.csv
+$File 'Test.txt' failed validation.
+SFile format should be Test_<portfoliocode>_<ddmmyyyy>_<2digit-sequencenumber>.csv
+2File 'Test_A_07121987_04.txt' failed validation.
+1Invalid File format. Expected 'csv' found 'txt'

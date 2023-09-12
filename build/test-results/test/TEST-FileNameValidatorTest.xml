@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="FileNameValidatorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-09-12T17:49:01" hostname="LAPTOP-JCVMHGAS" time="0.023">
+  <properties/>
+  <testcase name="testInvalidFileName()" classname="FileNameValidatorTest" time="0.023"/>
+  <system-out><![CDATA[File 'Test_E_07121987_03.csv' failed validation.
+PortfolioCode should be A/B/C found E.
+File 'Hello_A_07121987_05.csv' failed validation.
+Prefix for the file should be 'Test' found 'Hello'.
+File 'Test_A_07121987.txt' failed validation.
+File format should be Test_<portfoliocode>_<ddmmyyyy>_<2digit-sequencenumber>.csv
+File 'Test.txt' failed validation.
+File format should be Test_<portfoliocode>_<ddmmyyyy>_<2digit-sequencenumber>.csv
+File 'Test_A_07121987_04.txt' failed validation.
+Invalid File format. Expected 'csv' found 'txt'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
