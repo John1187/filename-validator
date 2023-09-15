@@ -1,1 +1,28 @@
-o06:21:37.522 [Test worker] INFO  org.jpm.FileNameValidator - File 'Test_A_01012022_01.csv' passed validation.
+o07:26:02.764 [Test worker] ERROR org.jpm.FileNameValidator - File 'Test_A_31132022_01.csv' failed validation.
+t07:26:02.772 [Test worker] ERROR org.jpm.FileNameValidator - Valuation Date is not a valid date format 'ddmmyyyy'.
+o07:26:02.777 [Test worker] ERROR org.jpm.FileNameValidator - File 'Test_B_02292020_01.csv' failed validation.
+t07:26:02.777 [Test worker] ERROR org.jpm.FileNameValidator - Valuation Date is not a valid date format 'ddmmyyyy'.
+o07:26:02.788 [Test worker] ERROR org.jpm.FileNameValidator - File location is invalid or file does not exist.
+o07:26:02.797 [Test worker] INFO  org.jpm.FileNameValidator - File 'Test_A_07121987_01.csv' passed validation.
+o07:26:02.799 [Test worker] INFO  org.jpm.FileNameValidator - File 'Test_B_12122021_99.csv' passed validation.
+o07:26:02.800 [Test worker] INFO  org.jpm.FileNameValidator - File 'Test_C_07052023_42.csv' passed validation.
+o07:26:02.802 [Test worker] ERROR org.jpm.FileNameValidator - File 'Test_E_07121987_03.csv' failed validation.
+e07:26:02.802 [Test worker] ERROR org.jpm.FileNameValidator - PortfolioCode should be A/B/C found E.
+l07:26:02.802 [Test worker] ERROR org.jpm.FileNameValidator - File 'Test_A_07121987.txt' failed validation.
+ê07:26:02.802 [Test worker] ERROR org.jpm.FileNameValidator - File format should be Test_<portfoliocode>_<ddmmyyyy>_<2digit-sequencenumber>.csv
+o07:26:02.803 [Test worker] ERROR org.jpm.FileNameValidator - File 'Test_A_07121987_04.txt' failed validation.
+n07:26:02.803 [Test worker] ERROR org.jpm.FileNameValidator - Invalid File format. Expected 'csv' found 'txt'
+x07:26:02.803 [Test worker] ERROR org.jpm.FileNameValidator - File 'InvalidPrefix_A_01012022_01.csv' failed validation.
+z07:26:02.803 [Test worker] ERROR org.jpm.FileNameValidator - Prefix for the file should be 'Test' found 'InvalidPrefix'.
+o07:26:02.804 [Test worker] ERROR org.jpm.FileNameValidator - File 'Test_X_01012022_01.csv' failed validation.
+e07:26:02.804 [Test worker] ERROR org.jpm.FileNameValidator - PortfolioCode should be A/B/C found X.
+l07:26:02.804 [Test worker] ERROR org.jpm.FileNameValidator - File 'Test_A_12345_01.csv' failed validation.
+t07:26:02.804 [Test worker] ERROR org.jpm.FileNameValidator - Valuation Date is not a valid date format 'ddmmyyyy'.
+p07:26:02.805 [Test worker] ERROR org.jpm.FileNameValidator - File 'Test_A_01012022_123.csv' failed validation.
+[07:26:02.805 [Test worker] ERROR org.jpm.FileNameValidator - Invalid sequence number '12'
+l07:26:02.806 [Test worker] ERROR org.jpm.FileNameValidator - File 'Test_A_01012022.csv' failed validation.
+ê07:26:02.806 [Test worker] ERROR org.jpm.FileNameValidator - File format should be Test_<portfoliocode>_<ddmmyyyy>_<2digit-sequencenumber>.csv
+n07:26:02.806 [Test worker] ERROR org.jpm.FileNameValidator - File 'Test_A_0101202201.csv' failed validation.
+ê07:26:02.806 [Test worker] ERROR org.jpm.FileNameValidator - File format should be Test_<portfoliocode>_<ddmmyyyy>_<2digit-sequencenumber>.csv
+
+_07:26:02.954 [Test worker] ERROR org.jpm.util.FileOperations - File location path is invalid.
