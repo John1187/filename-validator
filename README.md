@@ -21,7 +21,7 @@ This Java program is designed to validate file names based on specific criteria.
 ### Prerequisites
     
 - Java Development Kit (JDK 17) installed on your machine.
-- Gradle installed on your machine.
+- Gradle 7.2 installed on your machine.
     
 ### 1. Clone the Repository
     

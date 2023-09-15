@@ -1,9 +1,17 @@
 plugins {
-    id 'java'
+    id 'application'
+}
+
+wrapper {
+    gradleVersion = '7.2'
 }
 
 group = 'org.jpm'
 version = '1.0-SNAPSHOT'
+
+application {
+    mainClassName = 'org.jpm.FileNameValidatorApplication'
+}
 
 repositories {
     mavenCentral()
@@ -12,8 +20,15 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.32'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.6'
 }
 
 test {
     useJUnitPlatform()
 }
+
+
+
+

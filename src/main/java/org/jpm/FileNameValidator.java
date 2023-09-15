@@ -1,41 +1,52 @@
 package org.jpm;
 
+import org.jpm.construct.ValidationMessages;
+import org.jpm.util.FileOperations;
+
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileNameValidator {
-    public static boolean validateFileName(String fileLocation) {
-        String fileName = getFileNameFromLocation(fileLocation);
+    private static final Pattern FILE_NAME_PATTERN = Pattern.compile("^Test_[ABC]_\\d{8}_\\d{2}\\.csv$");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("ddMMyyyy");
+    private static final Logger logger = LoggerFactory.getLogger(FileNameValidator.class);
+    private final FileOperations fileOperations;
 
-        // Define the regular expression pattern for valid file names
-        String pattern = "^Test_[ABC]_\\d{8}_\\d{2}\\.csv$";
+    public FileNameValidator(FileOperations fileOperations) {
+        this.fileOperations = fileOperations;
+    }
 
-        Pattern regex = Pattern.compile(pattern);
-        Matcher matcher = regex.matcher(fileName);
+    public boolean validateFileName(String fileLocation) {
+
+        if (!fileOperations.fileExists(fileLocation)) {
+            logger.error("File location is invalid or file does not exist.");
+            return false;
+        }
+
+        String fileName = new File(fileLocation).getName();
+        Matcher matcher = FILE_NAME_PATTERN.matcher(fileName);
+
+        ;
 
         if (matcher.matches()) {
-
             String[] parts = fileName.split("_");
             String portfolioCode = parts[1];
             String dateString = parts[2];
             String sequenceNumber = parts[3].split("\\.")[0];
 
-            // Validate date format
-            SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
-            dateFormat.setLenient(false);
-            try {
-                Date date = dateFormat.parse(dateString);
-            } catch (Exception e) {
-                System.out.println("File '" + fileName + "' failed validation.");
-                System.out.println("Valuation Date is not a valid date format 'ddmmyyyy'.");
+            if (!isValidDate(dateString)) {
+                printValidationFailure(fileName, ValidationMessages.ErrorMessage.DATE_FORMAT_ERROR, fileName);
                 return false;
             }
 
             // File name is valid
-            System.out.println("File '" + fileName + "' passed validation.");
+            logger.info("File '" + fileName + "' passed validation.");
             return true;
         } else {
             // File name is invalid, provide details about the failure
@@ -44,36 +55,41 @@ public class FileNameValidator {
         }
     }
 
-    private static String getFileNameFromLocation(String fileLocation) {
-        File file = new File(fileLocation);
-        return file.getName();
-    }
-
     private static void validateAndPrintFailure(String fileName) {
         String[] parts = fileName.split("_");
-        if (parts.length != 4){
-            System.out.println("File '" + fileName + "' failed validation.");
-            System.out.println("File format should be Test_<portfoliocode>_<ddmmyyyy>_<2digit-sequencenumber>.csv");
+        if (parts.length != 4) {
+            printValidationFailure(fileName, ValidationMessages.ErrorMessage.FILE_FORMAT_ERROR, fileName);
         } else if (!parts[0].equals("Test")) {
             // Invalid prefix
-            System.out.println("File '" + fileName + "' failed validation.");
-            System.out.println("Prefix for the file should be 'Test' found '" + parts[0] + "'.");
+            printValidationFailure(fileName, ValidationMessages.ErrorMessage.PREFIX_ERROR, parts[0]);
         } else if (!parts[1].matches("[ABC]")) {
             // Invalid portfolio code
-            System.out.println("File '" + fileName + "' failed validation.");
-            System.out.println("PortfolioCode should be A/B/C found " + parts[1] + ".");
+            printValidationFailure(fileName, ValidationMessages.ErrorMessage.PORTFOLIO_CODE_ERROR, parts[1]);
         } else if (!parts[2].matches("\\d{8}")) {
             // Invalid date format
-            System.out.println("File '" + fileName + "' failed validation.");
-            System.out.println("Valuation Date is not a valid date format 'ddmmyyyy'.");
+            printValidationFailure(fileName, ValidationMessages.ErrorMessage.DATE_FORMAT_ERROR, fileName);
         } else if (!parts[3].matches("\\d{2}\\.csv")) {
             // Invalid sequence number or file format
-            System.out.println("File '" + fileName + "' failed validation.");
             if (!parts[3].endsWith(".csv")) {
-                System.out.println("Invalid File format. Expected 'csv' found '" + parts[3].substring(parts[3].indexOf('.') + 1) + "'");
+                printValidationFailure(fileName, ValidationMessages.ErrorMessage.FILE_FORMAT_INVALID, parts[3].substring(parts[3].indexOf('.') + 1));
             } else {
-                System.out.println("Invalid sequence number '" + parts[3].substring(0, 2) + "'");
+                printValidationFailure(fileName, ValidationMessages.ErrorMessage.SEQUENCE_NUMBER_ERROR, parts[3].substring(0, 2));
             }
         }
+    }
+
+    private static boolean isValidDate(String dateString) {
+        DATE_FORMAT.setLenient(false);
+        try {
+            Date date = DATE_FORMAT.parse(dateString);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    private static void printValidationFailure(String fileName, ValidationMessages.ErrorMessage errorMessage, String... args) {
+        logger.error("File '" + fileName + "' failed validation.");
+        logger.error(String.format(errorMessage.getMessage(), (Object[]) args));
     }
 }
